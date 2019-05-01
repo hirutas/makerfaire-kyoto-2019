@@ -13,6 +13,12 @@ import (
 func main() {
 	r := raspi.NewAdaptor()
 
+	led := gpio.NewLedDriver(r, "40")
+	err := led.On()
+	if err != nil {
+		log.Fatal("led error", err)
+	}
+
 	m1 := gpio.NewMotorDriver(r, "")
 	m1.ForwardPin = "21"
 	m1.BackwardPin = "22"
@@ -47,7 +53,7 @@ func main() {
 	sw5b := gpio.NewButtonDriver(r, "19")
 	fmt.Println("setup")
 
-	err := m1.Direction("none")
+	err = m1.Direction("none")
 	if err != nil {
 		log.Fatal("direction error", err)
 	}
